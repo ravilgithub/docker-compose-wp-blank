@@ -31,6 +31,7 @@ services:
       - mysql
     volumes:
       - ./.server/wp/:/var/www/html
+      - ./.server/custom.php.ini:/usr/local/etc/php/conf.d/custom.ini
       - ./theme/:/var/www/html/wp-content/themes/example
       - ./plugin/:/var/www/html/wp-content/plugins/example
     
