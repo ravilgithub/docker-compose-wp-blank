@@ -46,3 +46,12 @@ services:
       - 8080:80
     depends_on:
       - mysql
+
+  mailhog:
+    # latest = v1.0.1
+    image: mailhog/mailhog
+    container_name: mailhog
+    restart: always
+    ports:
+      - 1025:1025
+      - 8025:8025
