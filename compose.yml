@@ -2,7 +2,7 @@ services:
   mysql:
     # latest = 8.4.0
     image: mysql
-    container_name: mysql
+    # container_name: mysql
     restart: always
     environment:
       MYSQL_DATABASE: exampledb
@@ -15,7 +15,7 @@ services:
   wp:
     # latest = 6.5.3-php8.2-apache
     image: wordpress
-    container_name: wp
+    # container_name: wp
     restart: always
     environment:
       WORDPRESS_DB_HOST: mysql
@@ -38,7 +38,7 @@ services:
   pma:
     # latest = 5.2.1-apache
     image: phpmyadmin
-    container_name: pma
+    # container_name: pma
     restart: always
     environment:
       PMA_HOST: mysql
@@ -50,7 +50,7 @@ services:
   mailhog:
     # latest = v1.0.1
     image: mailhog/mailhog
-    container_name: mailhog
+    # container_name: mailhog
     restart: always
     ports:
       - 1025:1025
