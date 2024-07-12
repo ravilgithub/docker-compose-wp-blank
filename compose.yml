@@ -4,10 +4,10 @@ services:
     # container_name: mysql
     restart: always
     environment:
-      MYSQL_DATABASE: exampledb
-      MYSQL_USER: ravil
-      MYSQL_PASSWORD: R1b2I34
-      MYSQL_ROOT_PASSWORD: R1b2I34
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
       - ./.server/db/:/var/lib/mysql
 
@@ -16,11 +16,11 @@ services:
     # container_name: wp
     restart: always
     environment:
-      WORDPRESS_DB_HOST: mysql
-      WORDPRESS_DB_USER: ravil
-      WORDPRESS_DB_PASSWORD: R1b2I34
-      WORDPRESS_DB_NAME: exampledb
-      WORDPRESS_DEBUG: 1
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      WORDPRESS_DEBUG: ${WORDPRESS_DEBUG}
     ports:
       - 8000:80
     links:
@@ -38,7 +38,7 @@ services:
     # container_name: pma
     restart: always
     environment:
-      PMA_HOST: mysql
+      PMA_HOST: ${PMA_HOST}
     ports:
       - 8080:80
     depends_on:
