@@ -1,28 +1,31 @@
 services:
   mysql:
-    # latest = 8.4.0
-    image: mysql
-    container_name: mysql
+    image: mysql:8.4.0
+    # container_name: mysql
     restart: always
     environment:
-      MYSQL_DATABASE: exampledb
-      MYSQL_USER: ravil
-      MYSQL_PASSWORD: R1b2I34
-      MYSQL_ROOT_PASSWORD: R1b2I34
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD_FILE: /run/secrets/db_password
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+    secrets:
+      - db_password
+      - db_root_password
     volumes:
       - ./.server/db/:/var/lib/mysql
 
   wp:
-    # latest = 6.5.3-php8.2-apache
-    image: wordpress
-    container_name: wp
+    image: wordpress:6.5.4-php8.3-apache
+    # container_name: wp
     restart: always
     environment:
-      WORDPRESS_DB_HOST: mysql
-      WORDPRESS_DB_USER: ravil
-      WORDPRESS_DB_PASSWORD: R1b2I34
-      WORDPRESS_DB_NAME: exampledb
-      WORDPRESS_DEBUG: 1
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD_FILE: /run/secrets/db_password
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      WORDPRESS_DEBUG: ${WORDPRESS_DEBUG}
+    secrets:
+      - db_password
     ports:
       - 8000:80
     links:
@@ -34,24 +37,28 @@ services:
       - ./.server/custom.php.ini:/usr/local/etc/php/conf.d/custom.ini
       - ./theme/:/var/www/html/wp-content/themes/example
       - ./plugin/:/var/www/html/wp-content/plugins/example
-    
+
   pma:
-    # latest = 5.2.1-apache
-    image: phpmyadmin
-    container_name: pma
+    image: phpmyadmin:5.2.1-apache
+    # container_name: pma
     restart: always
     environment:
-      PMA_HOST: mysql
+      PMA_HOST: ${PMA_HOST}
     ports:
       - 8080:80
     depends_on:
       - mysql
 
   mailhog:
-    # latest = v1.0.1
-    image: mailhog/mailhog
-    container_name: mailhog
+    image: mailhog/mailhog:v1.0.1
+    # container_name: mailhog
     restart: always
     ports:
       - 1025:1025
       - 8025:8025
+
+secrets:
+  db_password:
+    file: .db_password.txt
+  db_root_password:
+    file: .db_root_password.txt
