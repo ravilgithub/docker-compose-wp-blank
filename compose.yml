@@ -12,6 +12,7 @@ services:
       - db_password
       - db_root_password
     volumes:
+      # - ./backup.sql:/docker-entrypoint-initdb.d/backup.sql
       - ./.server/db/:/var/lib/mysql
 
   wp:
