@@ -36,8 +36,8 @@ services:
     volumes:
       - ./.server/wp/:/var/www/html
       - ./.server/custom.php.ini:/usr/local/etc/php/conf.d/custom.ini
-      - ./theme/:/var/www/html/wp-content/themes/example
-      - ./plugin/:/var/www/html/wp-content/plugins/example
+      - ./themes/example/:/var/www/html/wp-content/themes/example
+      - ./plugins/example/:/var/www/html/wp-content/plugins/example
 
   pma:
     image: phpmyadmin:5.2.1-apache
